@@ -1,0 +1,157 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="Ontwikkelopdracht.Site1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>V.M.H.C. Basko</title>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+
+    <!-- Custom styles for this template -->
+    <link href="//getbootstrap.com/examples/starter-template/starter-template.css" rel="stylesheet"/>
+    <link href="//getbootstrap.com/examples/navbar-static-top/navbar-static-top.css" rel="stylesheet"/>
+    <style type="text/css">
+    body, html { 
+    overflow-x: hidden;
+    background-image: url("/Hockey.jpg");
+    background-size:100%;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    min-height:initial;
+    }
+    a:hover{
+        transition: 0.5s;
+    }
+    Button:hover{
+        transition: 0.5s;
+    }
+    #content{
+    margin-top: 50px;
+    border-radius: 10px;
+    position: absolute;
+    bottom:0;
+    top:0;
+	background-color: rgba(255, 255, 255, 0.8);
+	padding: 60px;
+	padding-top: 80px;
+    min-height: initial;
+    margin-left:auto;
+    margin-bottom:5%;
+    width: 60%;
+    overflow-y:auto;
+    }
+    h1{
+        text-align: center;
+        color: black;
+    }
+    .navbar-fixed-top{
+        margin-top: 30px;
+        padding-left: 60px;
+        padding-right: 60px;
+        margin-left: auto;
+        left: 140px;
+        right: 140px;
+        border-radius: 30px;
+    }
+    </style>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+
+<body>
+    <form id="form1" runat="server">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/Home.aspx">Basko</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/Wedstrijden.aspx">Wedstrijden</a></li>
+            <li><a href="/Vereniging.aspx">Vereniging</a></li>
+            <li><a href="#">Sponsors</a></li>
+            <asp:loginview ID="Loginview1" runat="server">
+            <AnonymousTemplate>
+                <li><a href="/Inschrijven.aspx">Inschrijven</a></li>
+            </AnonymousTemplate>
+            <LoggedInTemplate>
+                <% try
+                   {
+                       if ((Session["Lid"] as Ontwikkelopdracht.Lid).Rechten != null)
+                       {%>
+                <li><a href="/MemberOnly/MijnPagina.aspx">Mijn Pagina</a></li>
+                <% }
+                   }
+                   catch { } %>
+                <% try
+                   {
+                       if ((Session["Lid"] as Ontwikkelopdracht.Lid).Rechten == Ontwikkelopdracht.Lid.ERecht.Admin)
+                       {%>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Beheer
+                <b class="caret"></b>
+            </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/MemberOnly/LedenBeheer.aspx">Leden</a></li>
+                    <li><a href="#">Wedstrijden</a></li>
+                </ul></li>
+                <% }
+                   }
+                   catch { } %>
+            </LoggedInTemplate>
+            </asp:loginview>
+          </ul>
+            <div class="navbar-form navbar-right" role="form" runat="server" id="InLogDiv">
+            <div class="form-group">
+              <input type="text" placeholder="Lidnummer" class="form-control" name="LidNr"/>
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Wachtwoord" class="form-control" name="wachtwoord"/>
+            </div>
+            <asp:Linkbutton ID="LogIn" type="submit" class="btn btn-success" runat="server" OnClick="LogInButton_Click">Log in</asp:Linkbutton>
+          </div>
+            <div class="navbar-form navbar-right" id="OutLogDiv" runat="server"><asp:Linkbutton ID="LogOut" type="submit" class="btn btn-danger" runat="server" OnClick="LogOut_Click" ForeColor="White">Log out</asp:Linkbutton></div>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    
+    
+    <div class="container">
+    <div id="content">
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    </div>
+    </form>
+    
+    
+    
+    
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//getbootstrap.com/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
