@@ -368,26 +368,27 @@ namespace Ontwikkelopdracht
             bool gelukt = false;
             try
             {
-                cmd.CommandText = "SELECT MAX(WEDSTRIJDNR) FROM WEDSRIJD)";
+                int wedstrijdnr = 1;
+                cmd.CommandText = "SELECT MAX(WEDSTRIJDNR) AS NR FROM WEDSRIJD)";
                 rdr = cmd.ExecuteReader();
                 while(rdr.Read())
                 {
-
+                    wedstrijdnr = Convert.ToInt32(rdr["NR"]) + 1;
                 }
+
+                cmd.CommandText = @"INSERT INTO WEDSTRIJD(WEDSTRIJDNR, DATUM) VALUES("+ wedstrijdnr + " , " +  datum.ToOADate() + ")";
 
                 if (thuis)
                 {
-                    cmd.CommandText = @"INSERT INTO WEDSTRIJD(TEAMTHUIS,TEAMUIT,DATUM) VALUES(" + basko + "," + tegenstander + "," + datum.ToOADate() + ")";
+                    cmd.CommandText = @"INSERT INTO THUISWEDSTRIJD(TEAMTHUIS,TEAMUIT) VALUES('" + basko + "','" + tegenstander + "')";
                     cmd.ExecuteNonQuery();
-                    cmd.CommandText = @"INSERT INTO THUISWEDSTRIJD(TEAMTHUIS,TEAMUIT) VALUES(" + basko + "," + tegenstander + "," + datum.ToOADate() + ")";
-                    cmd.ExecuteNonQuery();
+                    gelukt = true;
                 }
                 else
                 {
-                    cmd.CommandText = @"INSERT INTO WEDSTRIJD(TEAMTHUIS,TEAMUIT,DATUM) VALUES(" + tegenstander + "," + basko + "," + datum.ToOADate() + ")";
+                    cmd.CommandText = @"INSERT INTO THUISWEDSTRIJD(TEAMTHUIS,TEAMUIT) VALUES('" + tegenstander + "','" + basko + "')";
                     cmd.ExecuteNonQuery();
-                    cmd.CommandText = @"INSERT INTO THUISWEDSTRIJD(TEAMTHUIS,TEAMUIT) VALUES(" + tegenstander + "," + basko + ")";
-                    cmd.ExecuteNonQuery();
+                    gelukt = true;
                 }
             }
             catch { }

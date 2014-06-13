@@ -19,7 +19,11 @@
     </div>
     <br />
     <div class="row">
-        <asp:LinkButton ID="OK" CssClass="btn btn-success" OnClick="OK_Click" runat="server">Maak</asp:LinkButton>
+        <asp:CheckBox ID="Thuis" runat="server" Text="Thuis" />
+    </div>
+    <br />
+    <div class="row">
+        <asp:LinkButton ID="OK" CssClass="btn btn-success" OnClick="OK_Click" runat="server">Maak Wedstrijd Aan</asp:LinkButton>
     </div>
     </center>
 </asp:Content>
