@@ -113,7 +113,7 @@
             </a>
                 <ul class="dropdown-menu">
                     <li><a href="/MemberOnly/LedenBeheer.aspx">Leden</a></li>
-                    <li><a href="#">Wedstrijden</a></li>
+                    <li><a href="/MemberOnly/WedstrijdenBeheer.aspx">Wedstrijden</a></li>
                 </ul></li>
                 <% }
                    }

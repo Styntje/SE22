@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MemberOnly\LedenBeheer.aspx" />
+    <Content Include="MemberOnly\WedstrijdenBeheer.aspx" />
     <Content Include="Site1.Master" />
     <Content Include="MemberOnly\MijnPagina.aspx" />
     <Content Include="Nieuwsbericht.aspx" />
@@ -88,6 +89,13 @@
     </Compile>
     <Compile Include="MemberOnly\LedenBeheer.aspx.designer.cs">
       <DependentUpon>LedenBeheer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MemberOnly\WedstrijdenBeheer.aspx.cs">
+      <DependentUpon>WedstrijdenBeheer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MemberOnly\WedstrijdenBeheer.aspx.designer.cs">
+      <DependentUpon>WedstrijdenBeheer.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site1.Master.cs">

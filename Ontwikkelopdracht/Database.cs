@@ -316,5 +316,51 @@ namespace Ontwikkelopdracht
             Database.AddLid(lid);
             Database.DeleteAanvraag(nr);
         }
+
+        public static List<string> GetTeamsBasko()
+        {
+            List<string> ls = new List<string>();
+            try
+            {
+                Open();
+                cmd.CommandText = @"SELECT TEAMCODE FROM TEAM";
+                cmd.CommandType = CommandType.Text;
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    ls.Add(rdr["TEAMCODE"].ToString());
+                }
+                Close();
+            }
+            catch
+            {
+                Close();
+            }
+
+            return ls;
+        }
+
+        public static List<string> GetTeamsTegenstander()
+        {
+            List<string> ls = new List<string>();
+            try
+            {
+                Open();
+                cmd.CommandText = @"SELECT TEAMCODE, CLUBNAAM FROM TEGENSTANDER";
+                cmd.CommandType = CommandType.Text;
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    ls.Add(rdr["CLUBNAAM"].ToString() + " - " + rdr["TEAMCODE"].ToString());
+                }
+                Close();
+            }
+            catch
+            {
+                Close();
+            }
+
+            return ls;
+        }
     }
 }
