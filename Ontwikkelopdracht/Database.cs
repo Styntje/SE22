@@ -362,5 +362,37 @@ namespace Ontwikkelopdracht
 
             return ls;
         }
+
+        public static bool AddWedstrijd(string basko, string tegenstander, DateTime datum, bool thuis)
+        {
+            bool gelukt = false;
+            try
+            {
+                cmd.CommandText = "SELECT MAX(WEDSTRIJDNR) FROM WEDSRIJD)";
+                rdr = cmd.ExecuteReader();
+                while(rdr.Read())
+                {
+
+                }
+
+                if (thuis)
+                {
+                    cmd.CommandText = @"INSERT INTO WEDSTRIJD(TEAMTHUIS,TEAMUIT,DATUM) VALUES(" + basko + "," + tegenstander + "," + datum.ToOADate() + ")";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = @"INSERT INTO THUISWEDSTRIJD(TEAMTHUIS,TEAMUIT) VALUES(" + basko + "," + tegenstander + "," + datum.ToOADate() + ")";
+                    cmd.ExecuteNonQuery();
+                }
+                else
+                {
+                    cmd.CommandText = @"INSERT INTO WEDSTRIJD(TEAMTHUIS,TEAMUIT,DATUM) VALUES(" + tegenstander + "," + basko + "," + datum.ToOADate() + ")";
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = @"INSERT INTO THUISWEDSTRIJD(TEAMTHUIS,TEAMUIT) VALUES(" + tegenstander + "," + basko + ")";
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch { }
+
+            return gelukt;
+        }
     }
 }

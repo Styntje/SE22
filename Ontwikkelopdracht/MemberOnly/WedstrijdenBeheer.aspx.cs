@@ -23,5 +23,10 @@ namespace Ontwikkelopdracht.MemberOnly
                 }
             }
         }
+
+        protected void OK_Click(object sender, EventArgs e)
+        {
+            Database.AddWedstrijd(TeamBasko.Text, TeamTegenstander.Text, Datum.SelectedDate, true);
+        }
     }
 }
