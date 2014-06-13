@@ -238,11 +238,11 @@ namespace Ontwikkelopdracht
         public static void AddAanvraag(Lid lid)
         {
             Open();
-            cmd.CommandText = @"INSERT INTO AANVRAAG VALUES(:lidnr,:naam,:geboortedatum,:geslacht,:rekeningnummer,:telefoonnummer,:adres,:postcode,'Veldhoven',NULL,NULL,'ww88',:rechten";
+            cmd.CommandText = @"INSERT INTO AANVRAAG VALUES(:lidnr,':naam',':geboortedatum',':geslacht',':rekeningnummer',':telefoonnummer',':adres',':postcode','Veldhoven',NULL,NULL,'ww88',':rechten'";
             cmd.CommandType = CommandType.Text;
-            cmd.Parameters.Add(":lidnr", OracleDbType.Int32, lid.LidNummer, ParameterDirection.Input);
+            cmd.Parameters.Add(":lidnr", OracleDbType.Varchar2, lid.LidNummer, ParameterDirection.Input);
             cmd.Parameters.Add(":naam", OracleDbType.Varchar2, lid.Naam, ParameterDirection.Input);
-            cmd.Parameters.Add(":geboortedatum", OracleDbType.Date, lid.Geboortedatum.ToOADate(), ParameterDirection.Input);
+            cmd.Parameters.Add(":geboortedatum", OracleDbType.Date, lid.Geboortedatum.ToString("dd-MMM-yyyy"), ParameterDirection.Input);
             cmd.Parameters.Add(":geslacht", OracleDbType.Varchar2, lid.Geslacht.ToString(), ParameterDirection.Input);
             cmd.Parameters.Add(":rekeningnummer", OracleDbType.Varchar2, lid.RekeningNummer, ParameterDirection.Input);
             cmd.Parameters.Add(":telefoonnummer", OracleDbType.Varchar2, lid.TelefoonNummer, ParameterDirection.Input);
@@ -365,30 +365,37 @@ namespace Ontwikkelopdracht
             bool gelukt = false;
             try
             {
+                Open();
                 int wedstrijdnr = 1;
-                cmd.CommandText = "SELECT MAX(WEDSTRIJDNR) AS NR FROM WEDSRIJD)";
+                cmd.CommandText = "SELECT MAX(WEDSTRIJDNR) AS NR FROM WEDSTRIJD";
                 rdr = cmd.ExecuteReader();
-                while(rdr.Read())
+                try
                 {
-                    wedstrijdnr = Convert.ToInt32(rdr["NR"]) + 1;
+                    while (rdr.Read())
+                    {
+                        wedstrijdnr = Convert.ToInt32(rdr["NR"]) + 1;
+                    }
                 }
+                catch { wedstrijdnr = 1; }
 
-                cmd.CommandText = @"INSERT INTO WEDSTRIJD(WEDSTRIJDNR, DATUM) VALUES("+ wedstrijdnr + " , " +  datum.ToOADate() + ")";
+                cmd.CommandText = @"INSERT INTO WEDSTRIJD(WEDSTRIJDNR, DATUM) VALUES("+ wedstrijdnr + " , '" +  datum.ToString("dd-MMM-yyyy") + "')";
+                cmd.ExecuteNonQuery();
 
                 if (thuis)
                 {
-                    cmd.CommandText = @"INSERT INTO THUISWEDSTRIJD(TEAMTHUIS,TEAMUIT) VALUES('" + basko + "','" + tegenstander + "')";
+                    cmd.CommandText = @"INSERT INTO THUISWEDSTRIJD(WEDSTRIJDNR,TEAMTHUIS,TEAMUIT) VALUES(" + wedstrijdnr + ",'" + basko + "','" + tegenstander + "')";
                     cmd.ExecuteNonQuery();
                     gelukt = true;
                 }
                 else
                 {
-                    cmd.CommandText = @"INSERT INTO THUISWEDSTRIJD(TEAMTHUIS,TEAMUIT) VALUES('" + tegenstander + "','" + basko + "')";
+                    cmd.CommandText = @"INSERT INTO UITWEDSTRIJD(WEDSTRIJDNR,TEAMTHUIS,TEAMUIT) VALUES(" + wedstrijdnr + ",'" + tegenstander + "','" + basko + "')";
                     cmd.ExecuteNonQuery();
                     gelukt = true;
                 }
+                Close();
             }
-            catch { }
+            catch { Close(); }
 
             return gelukt;
         }

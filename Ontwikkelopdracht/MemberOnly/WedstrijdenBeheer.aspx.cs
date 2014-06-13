@@ -15,7 +15,7 @@ namespace Ontwikkelopdracht.MemberOnly
             {
                 foreach (string s in Database.GetTeamsBasko())
                 {
-                    TeamBasko.Items.Add(new ListItem("Basko " + s, s));
+                    TeamBasko.Items.Add(new ListItem("Basko - " + s, s));
                 }
                 foreach (string s in Database.GetTeamsTegenstander())
                 {
@@ -26,8 +26,12 @@ namespace Ontwikkelopdracht.MemberOnly
 
         protected void OK_Click(object sender, EventArgs e)
         {
-            Database.AddWedstrijd(TeamBasko.Text, TeamTegenstander.Text, Datum.SelectedDate, Thuis.Checked);
-            Response.Redirect("Wedstrijden.aspx");
+            try
+            {
+                Database.AddWedstrijd(TeamBasko.Text, TeamTegenstander.Text, Datum.SelectedDate, Thuis.Checked);
+                Response.Redirect("/Wedstrijden.aspx");
+            }
+            catch { OK.Text = "Fout in invoer"; }
         }
     }
 }
