@@ -74,8 +74,9 @@ namespace Ontwikkelopdracht
         {
             Open();
             Lid lid = null;
-            cmd.CommandText = "SELECT * FROM LID WHERE LIDNR = " + lidnr.ToString();
+            cmd.CommandText = "SELECT * FROM LID WHERE LIDNR = :lidnr";
             cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add(":lidnr",OracleDbType.Int32,lidnr,ParameterDirection.Input);
             rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
@@ -110,8 +111,9 @@ namespace Ontwikkelopdracht
         {
             Open();
             Lid lid = null;
-            cmd.CommandText = "SELECT * FROM AANVRAAG WHERE LIDNR = " + nr;
+            cmd.CommandText = "SELECT * FROM AANVRAAG WHERE LIDNR = :nr";
             cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add(":nr", OracleDbType.Int32, nr, ParameterDirection.Input);
             rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
@@ -218,21 +220,17 @@ namespace Ontwikkelopdracht
         public static void AddLid(Lid lid)
         {
             Open();
-            cmd.CommandText = @"INSERT INTO LID VALUES( " +
-                lid.LidNummer + " , '" +
-                lid.Naam + "' , '" +
-                lid.Geboortedatum.ToString("dd-MMM-yyyy") + "' , '" +
-                lid.Geslacht.ToString() + "' , '" +
-                lid.RekeningNummer + "' , '" +
-                lid.TelefoonNummer + "' , '" +
-                lid.Adres + "' , '" +
-                lid.Postcode + "' , '" +
-                "Veldhoven" + "' , " +
-                " NULL " + " , " +
-                " NULL , " +
-                "'ww88'" + " , '" +
-                lid.Rechten.ToString() + "' )";
+            cmd.CommandText = @"INSERT INTO LID VALUES(:lidnr,:naam,:geboortedatum,:geslacht,:rekeningnummer,:telefoonnummer,:adres,:postcode,'Veldhoven',NULL,NULL,'ww88',:rechten";
             cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add(":lidnr", OracleDbType.Int32, lid.LidNummer, ParameterDirection.Input);
+            cmd.Parameters.Add(":naam", OracleDbType.Varchar2, lid.Naam, ParameterDirection.Input);
+            cmd.Parameters.Add(":geboortedatum", OracleDbType.Date, lid.Geboortedatum.ToOADate(), ParameterDirection.Input);
+            cmd.Parameters.Add(":geslacht", OracleDbType.Varchar2, lid.Geslacht.ToString(), ParameterDirection.Input);
+            cmd.Parameters.Add(":rekeningnummer", OracleDbType.Varchar2, lid.RekeningNummer, ParameterDirection.Input);
+            cmd.Parameters.Add(":telefoonnummer", OracleDbType.Varchar2, lid.TelefoonNummer, ParameterDirection.Input);
+            cmd.Parameters.Add(":adres", OracleDbType.Varchar2, lid.Adres, ParameterDirection.Input);
+            cmd.Parameters.Add(":postcode", OracleDbType.Varchar2, lid.Postcode, ParameterDirection.Input);
+            cmd.Parameters.Add(":rechten", OracleDbType.Varchar2, lid.Rechten.ToString(), ParameterDirection.Input);
             cmd.ExecuteNonQuery();
         }
 
@@ -240,27 +238,25 @@ namespace Ontwikkelopdracht
         public static void AddAanvraag(Lid lid)
         {
             Open();
-            cmd.CommandText = @"INSERT INTO AANVRAAG VALUES( " +
-                lid.LidNummer + " , '" +
-                lid.Naam + "' , '" +
-                lid.Geboortedatum.ToString("dd-MMM-yyyy") + "' , '" +
-                lid.Geslacht.ToString() + "' , '" +
-                lid.RekeningNummer + "' , '" +
-                lid.TelefoonNummer + "' , '" +
-                lid.Adres + "' , '" +
-                lid.Postcode + "' , '" +
-                "Veldhoven" + "' , '" +
-                lid.TeamCode + "' , " +
-                " NULL , " +
-                "'ww88'" + " , '" +
-                lid.Rechten.ToString() + "' )";
+            cmd.CommandText = @"INSERT INTO AANVRAAG VALUES(:lidnr,:naam,:geboortedatum,:geslacht,:rekeningnummer,:telefoonnummer,:adres,:postcode,'Veldhoven',NULL,NULL,'ww88',:rechten";
             cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add(":lidnr", OracleDbType.Int32, lid.LidNummer, ParameterDirection.Input);
+            cmd.Parameters.Add(":naam", OracleDbType.Varchar2, lid.Naam, ParameterDirection.Input);
+            cmd.Parameters.Add(":geboortedatum", OracleDbType.Date, lid.Geboortedatum.ToOADate(), ParameterDirection.Input);
+            cmd.Parameters.Add(":geslacht", OracleDbType.Varchar2, lid.Geslacht.ToString(), ParameterDirection.Input);
+            cmd.Parameters.Add(":rekeningnummer", OracleDbType.Varchar2, lid.RekeningNummer, ParameterDirection.Input);
+            cmd.Parameters.Add(":telefoonnummer", OracleDbType.Varchar2, lid.TelefoonNummer, ParameterDirection.Input);
+            cmd.Parameters.Add(":adres", OracleDbType.Varchar2, lid.Adres, ParameterDirection.Input);
+            cmd.Parameters.Add(":postcode", OracleDbType.Varchar2, lid.Postcode, ParameterDirection.Input);
+            cmd.Parameters.Add(":rechten", OracleDbType.Varchar2, lid.Rechten.ToString(), ParameterDirection.Input);
             cmd.ExecuteNonQuery();
         }
 
         public static void DeleteAanvraag(int nr)
         {
-            cmd.CommandText = "DELETE FROM AANVRAAG WHERE LIDNR=" + nr;
+            cmd.CommandText = "DELETE FROM AANVRAAG WHERE LIDNR= :nr";
+            cmd.CommandType = CommandType.Text;
+            cmd.Parameters.Add(":nr", OracleDbType.Int32, nr, ParameterDirection.Input);
             Open();
             cmd.ExecuteNonQuery();
             Close();
@@ -289,8 +285,9 @@ namespace Ontwikkelopdracht
             try
             {
                 Open();
-                cmd.CommandText = @"SELECT * FROM NIEUWSBERICHT WHERE NIEUWSNR = " + nummer;
+                cmd.CommandText = @"SELECT * FROM NIEUWSBERICHT WHERE NIEUWSNR = :nummer";
                 cmd.CommandType = CommandType.Text;
+                cmd.Parameters.Add(":nummer", OracleDbType.Int32, nummer, ParameterDirection.Input);
                 ds.Load(cmd.ExecuteReader());
                 Close();
             }

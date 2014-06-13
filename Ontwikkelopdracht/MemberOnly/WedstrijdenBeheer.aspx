@@ -5,17 +5,17 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <center>
     <div class="row">
-        <asp:DropDownList ID="TeamBasko" runat="server" Width="80px" DataTextField="Categorie" CssClass="dropdown">
+        <asp:DropDownList ID="TeamBasko" runat="server" Width="200px" DataTextField="Categorie" CssClass="dropdown">
         </asp:DropDownList>
     </div>
     <br />
     <div class="row">
-        <asp:DropDownList ID="TeamTegenstander" runat="server" Width="80px" DataTextField="Categorie" CssClass="dropdown">
+        <asp:DropDownList ID="TeamTegenstander" runat="server" Width="200px" DataTextField="Categorie" CssClass="dropdown">
         </asp:DropDownList>
     </div>
     <br />
     <div class="row">
-        <asp:Calendar ID="Datum" runat="server" />
+        <asp:Calendar ID="Datum" runat="server" Width="200px" />
     </div>
     <br />
     <div class="row">
