@@ -3,36 +3,31 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <center>
     <div class="row">
-        <asp:TextBox ID="Nummer" runat="server" PlaceHolder="GewenstNummer" />
-    </div>
+        <asp:TextBox ID="Naam" runat="server" PlaceHolder="Naam" Width="300px"/>
+    </div><br />
     <div class="row">
-        <asp:TextBox ID="Naam" runat="server" PlaceHolder="Naam" />
-    </div>
+        <asp:Label ID="lab" Text="Gebortedatum:" Width="300px" runat="server"/><br />
+        <asp:Calendar ID="GebDat" runat="server" Width="300px"/>
+    </div><br />
     <div class="row">
-        <asp:TextBox ID="GeboortedatumD" runat="server" PlaceHolder="Dag" />
-        <asp:TextBox ID="GeboortedatumM" runat="server" PlaceHolder="Maand" />
-        <asp:TextBox ID="GeboortedatumJ" runat="server" PlaceHolder="Jaar" />
-    </div>
+        <asp:TextBox ID="Geslacht" runat="server" PlaceHolder="Geslacht M/V" Width="300px"/>
+    </div><br />
     <div class="row">
-        <asp:TextBox ID="Geslacht" runat="server" PlaceHolder="Geslacht M/V" />
-    </div>
+        <asp:TextBox ID="RekeningNummer" runat="server" PlaceHolder="Rekeningnummer" Width="300px"/>
+    </div><br />
     <div class="row">
-        <asp:TextBox ID="RekeningNummer" runat="server" PlaceHolder="Rekeningnummer" />
-    </div>
+        <asp:TextBox ID="TelefoonNummer" runat="server" PlaceHolder="Telefoonnummer" Width="300px"/>
+    </div><br />
     <div class="row">
-        <asp:TextBox ID="TelefoonNummer" runat="server" PlaceHolder="Telefoonnummer" />
-    </div>
+        <asp:TextBox ID="Adres" runat="server" PlaceHolder="Adres" Width="300px"/>
+    </div><br />
     <div class="row">
-        <asp:TextBox ID="Adres" runat="server" PlaceHolder="Adres" />
-    </div>
+        <asp:TextBox ID="Postcode" runat="server" PlaceHolder="Postcode" Width="300px"/>
+    </div><br />
     <div class="row">
-        <asp:TextBox ID="Postcode" runat="server" PlaceHolder="Postcode" />
+        <asp:Button ID="btnK" CssClass="btn btn-primary" Text="Inschijven!" runat="server" OnClick="btnK_Click" Width="300px"/>
     </div>
-    <div class="row">
-        <asp:TextBox ID="Teamcode" runat="server" PlaceHolder="Teamcode gewenst" />
-    </div>
-    <div class="row">
-        <asp:Button ID="btnK" CssClass="btn btn-primary" Text="Inschijven!" runat="server" OnClick="btnK_Click"/>
-    </div>
+    </center>
 </asp:Content>

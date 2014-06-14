@@ -13,15 +13,6 @@ namespace Ontwikkelopdracht {
     public partial class WebForm5 {
         
         /// <summary>
-        /// Nummer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Nummer;
-        
-        /// <summary>
         /// Naam control.
         /// </summary>
         /// <remarks>
@@ -31,31 +22,22 @@ namespace Ontwikkelopdracht {
         protected global::System.Web.UI.WebControls.TextBox Naam;
         
         /// <summary>
-        /// GeboortedatumD control.
+        /// lab control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox GeboortedatumD;
+        protected global::System.Web.UI.WebControls.Label lab;
         
         /// <summary>
-        /// GeboortedatumM control.
+        /// GebDat control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox GeboortedatumM;
-        
-        /// <summary>
-        /// GeboortedatumJ control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox GeboortedatumJ;
+        protected global::System.Web.UI.WebControls.Calendar GebDat;
         
         /// <summary>
         /// Geslacht control.
@@ -101,15 +83,6 @@ namespace Ontwikkelopdracht {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Postcode;
-        
-        /// <summary>
-        /// Teamcode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Teamcode;
         
         /// <summary>
         /// btnK control.
