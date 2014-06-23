@@ -18,7 +18,7 @@ namespace Ontwikkelopdracht.MemberOnly
         {
             try
             {
-                Database.SetTeam(Lid.current, Convert.ToInt32(Teamcode.Text));
+                Database.SetTeam(Lid.current, Teamcode.Text);
             }
             catch
             {

@@ -18,7 +18,8 @@ namespace Ontwikkelopdracht
         {
             try
             {
-                Database.AddAanvraag(new Lid(1, Naam.Text, GebDat.SelectedDate, (Geslacht.Text == Lid.EGeslacht.M.ToString() ? Lid.EGeslacht.M : Lid.EGeslacht.V), RekeningNummer.Text, TelefoonNummer.Text, Postcode.Text, Adres.Text, "No team", -1, Lid.ERecht.Lid, "ww88"));
+                Database.AddAanvraag(new Lid(1, Naam.Text, GebDat.SelectedDate, (Geslacht.Text == Lid.EGeslacht.M.ToString() ? Lid.EGeslacht.M : Lid.EGeslacht.V), RekeningNummer.Text, TelefoonNummer.Text, Postcode.Text, Adres.Text, Woonplaats.Text, "No team", -1, Lid.ERecht.Lid, Wachtwoord.Text));
+                Response.Redirect("Home.aspx");
             }
             catch { btnK.Text = "Inschrijven niet mogelijk op dit moment";}
         }

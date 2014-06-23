@@ -27,6 +27,12 @@
         <asp:TextBox ID="Postcode" runat="server" PlaceHolder="Postcode" Width="300px"/>
     </div><br />
     <div class="row">
+        <asp:TextBox ID="Woonplaats" runat="server" PlaceHolder="Woonplaats" Width="300px"/>
+    </div><br />
+    <div class="row">
+        <asp:TextBox ID="Wachtwoord" runat="server" PlaceHolder="Wachtwoord" Width="300px"/>
+    </div><br />
+    <div class="row">
         <asp:Button ID="btnK" CssClass="btn btn-primary" Text="Inschijven!" runat="server" OnClick="btnK_Click" Width="300px"/>
     </div>
     </center>

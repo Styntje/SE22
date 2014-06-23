@@ -65,6 +65,12 @@ namespace Ontwikkelopdracht
             private set;
         }
 
+        public string Woonplaats
+        {
+            get;
+            private set;
+        }
+
         public string TeamCode
         {
             get;
@@ -83,7 +89,11 @@ namespace Ontwikkelopdracht
             private set;
         }
 
-        private string wachtwoord;
+        public string Wachtwoord
+        {
+            get;
+            private set;
+        }
 
         public Lid(int lidNummer,
                     string naam,
@@ -93,6 +103,7 @@ namespace Ontwikkelopdracht
                     string TelefoonNummer,
                     string postcode,
                     string adres,
+                    string woonplaats,
                     string teamCode,
                     int organisatorNummer,
                     ERecht rechten,
@@ -106,15 +117,16 @@ namespace Ontwikkelopdracht
             this.TelefoonNummer = TelefoonNummer;
             this.Postcode = postcode;
             this.Adres = adres;
+            this.Woonplaats = woonplaats;
             this.TeamCode = teamCode;
             this.OrganisatorNummer = organisatorNummer;
             this.Rechten = rechten;
-            this.wachtwoord = wachtwoord;
+            this.Wachtwoord = wachtwoord;
         }
 
         public bool CheckWachtwoord(string wachtwoord)
         {
-            if(this.wachtwoord == wachtwoord)
+            if(this.Wachtwoord == wachtwoord)
             {
                 return true;
             }
