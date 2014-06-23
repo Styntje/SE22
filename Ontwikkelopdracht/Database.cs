@@ -198,6 +198,7 @@ namespace Ontwikkelopdracht
                                     ELSE 'Uit' 
                                     END as WAAR,UITWEDSTRIJD.TEAMUIT AS BASKO, UITWEDSTRIJD.TEAMTHUIS AS TEGENSTANDER, to_char(WEDSTRIJD.DATUM,'DD/MM/YYYY HH:MI')as DATUM , WEDSTRIJD.UITSLAG 
                                     FROM WEDSTRIJD, UITWEDSTRIJD
+                                    WHERE WEDSTRIJD.WEDSTRIJDNR = UITWEDSTRIJD.WEDSTRIJDNR
                                     UNION
                                     SELECT CASE 
                                     WHEN WEDSTRIJD.WEDSTRIJDNR in (SELECT wedstrijdnr FROM THUISWEDSTRIJD) 
@@ -205,6 +206,7 @@ namespace Ontwikkelopdracht
                                     ELSE 'Uit'
                                     END as WAAR, THUISWEDSTRIJD.TEAMTHUIS AS BASKO, THUISWEDSTRIJD.TEAMUIT AS TEGENSTANDER,to_char(WEDSTRIJD.DATUM,'DD/MM/YYYY HH:MI')as DATUM , WEDSTRIJD.UITSLAG 
                                     FROM WEDSTRIJD, THUISWEDSTRIJD
+                                    WHERE WEDSTRIJD.WEDSTRIJDNR = THUISWEDSTRIJD.WEDSTRIJDNR
                                     ORDER BY DATUM";
                 cmd.CommandType = CommandType.Text;
                 ds.Load(cmd.ExecuteReader());
@@ -220,7 +222,8 @@ namespace Ontwikkelopdracht
         public static void AddLid(Lid lid)
         {
             Open();
-            cmd.CommandText = @"INSERT INTO LID(LIDNR,NAAM,GEBOORTEDATUM,GESLACHT,REKENINGNUMMER,TELEFOONNUMMER,ADRES,POSTCODE,WOONPLAATS,WACHTWOORD,RECHT) VALUES(:lidnr,:naam,:geboortedatum,:geslacht,:rekeningnummer,:telefoonnummer,:adres,:postcode, :woonplaats, :wachtwoord,:rechten";
+            cmd.CommandText = @"INSERT INTO LID(LIDNR,NAAM,GEBOORTEDATUM,GESLACHT,REKENINGNUMMER,TELEFOONNUMMER,ADRES,POSTCODE,WOONPLAATS,WACHTWOORD,RECHT) VALUES(:lidnr,:naam,:geboortedatum,:geslacht,:rekeningnummer,:telefoonnummer,:adres,:postcode, :woonplaats, :wachtwoord,:rechten)";
+            cmd.Parameters.Clear();
             cmd.Parameters.Add("lidnr", OracleDbType.Int32, lid.LidNummer, ParameterDirection.Input);
             cmd.Parameters.Add("naam", OracleDbType.Varchar2, lid.Naam, ParameterDirection.Input);
             cmd.Parameters.Add("geboortedatum", OracleDbType.TimeStamp, lid.Geboortedatum, ParameterDirection.Input);
@@ -233,6 +236,8 @@ namespace Ontwikkelopdracht
             cmd.Parameters.Add("rechten", OracleDbType.Varchar2, lid.Rechten.ToString(), ParameterDirection.Input);
             cmd.Parameters.Add("wachtwoord", OracleDbType.Varchar2, lid.Wachtwoord, ParameterDirection.Input);
             cmd.ExecuteNonQuery();
+            cmd.Parameters.Clear();
+            Close();
         }
 
 
@@ -246,6 +251,7 @@ namespace Ontwikkelopdracht
             int lidnr = Get_New_LidNummer();
             cmd = new OracleCommand(@"INSERT INTO AANVRAAG(LIDNR,NAAM,GEBOORTEDATUM,GESLACHT,REKENINGNUMMER,TELEFOONNUMMER,ADRES,POSTCODE,WOONPLAATS,RECHT, WACHTWOORD) VALUES(:lidnr,:naam,:geboortedatum,:geslacht,:rekeningnummer,:telefoonnummer,:adres,:postcode, :woonplaats,UPPER(:rechten), :wachtwoord)",conn);
             //cmd.CommandText = "INSERT INTO AANVRAAG(LIDNR,NAAM,GEBOORTEDATUM,GESLACHT,REKENINGNUMMER,TELEFOONNUMMER,ADRES,POSTCODE,RECHTEN) VALUES(':lidnr',':naam',':geboortedatum',':geslacht',':rekeningnummer',':telefoonnummer',':adres',':postcode',':rechten'";
+            cmd.Parameters.Clear();
             cmd.Parameters.Add("lidnr", OracleDbType.Int32, lidnr, ParameterDirection.Input);
             cmd.Parameters.Add("naam", OracleDbType.Varchar2, lid.Naam, ParameterDirection.Input);
             cmd.Parameters.Add("geboortedatum", OracleDbType.TimeStamp, lid.Geboortedatum, ParameterDirection.Input);
@@ -260,6 +266,7 @@ namespace Ontwikkelopdracht
             Open();
             cmd.ExecuteNonQuery();
             Close();
+            cmd.Parameters.Clear();
         }
 
         public static int Get_New_LidNummer()
@@ -335,7 +342,7 @@ namespace Ontwikkelopdracht
             Open();
             cmd.CommandText = query;
             cmd.CommandType = CommandType.Text;
-            ds.Load(cmd.ExecuteReader());
+            cmd.ExecuteNonQuery();
             Close();
         }
 

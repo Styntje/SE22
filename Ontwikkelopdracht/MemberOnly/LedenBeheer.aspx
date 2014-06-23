@@ -15,7 +15,9 @@
                             <asp:Label runat="server" ID="Info" Tekst="Lid Toevoegen" Text="Geen Leden"/> 
                             <div class="panel-body">
                             <asp:TextBox ID="Teamcode" runat="server" PlaceHolder="TeamCode" />
+                                <div class="row">
                             <asp:Button runat="server" ID="VoegToeLid" class="btn btn-succes" OnClick="VoegToeLid_Click"/>
+                                    </div>
                             </div>
                         </div>
                     </div>
